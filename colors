@@ -1,0 +1,7 @@
+; vim:ft=cfg
+[colors]
+lighter = ${xrdb:color2:#222}
+darker = ${xrdb:color1:#222}
+lighttext = ${xrdb:color7:#222}
+darkest = ${xrdb:color0:#222}
+i3bg = ${xrdb:color1:#222}

@@ -1,0 +1,309 @@
+; vim:ft=cfg
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+
+[colors]
+
+;right side
+;lighter colour
+lighter = ${xrdb:color2:#222}
+;lighter = #98D4EF
+;darker colour
+darker = ${xrdb:color1:#222}
+
+;off white most light fonts color
+lighttext = ${xrdb:color7:#222}
+;off black color
+darkest = ${xrdb:color0:#222}
+;i3bg
+i3bg = ${xrdb:color1:#222}
+[bar/autumn]
+width = 100%
+height = 34
+radius = 0
+fixed-center = true 
+bottom = true
+
+background = ${colors.darkest}
+foreground = ${colors.lighttext}
+
+line-size = 3
+line-color =
+
+border-size = 0
+border-color =
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = "Source Code Pro Semibold:pixelsize=13;1"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=13;1"
+font-2 = "Font Awesome 5 Brands:pixelsize=13;1"
+
+modules-left = i3
+modules-center = 
+modules-right = battery battery1 filesystem xbacklight volume xkeyboard memory cpu wlan eth temperature date powermenu
+
+tray-position = right
+tray-padding = 2
+;tray-transparent = true
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.darkest}
+label-mode-background = ${colors.i3bg}
+
+label-focused = %name%
+label-focused-background = ${colors.i3bg}
+label-focused-foreground = ${colors.lighttext}
+label-focused-padding = 2
+
+label-unfocused = %name%
+label-unfocused-background = ${colors.i3bg}
+label-unfocused-foreground = ${colors.darkest}
+label-unfocused-padding = 2
+
+label-visible = %name%
+label-visible-background = ${colors.i3bg}
+label-visible-foreground = ${colors.darkest}
+label-visible-padding = 2
+
+label-urgent = %name%
+label-urgent-background = #BA2922
+label-urgent-padding = 2
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0 
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-foreground = ${colors.darkest}
+format-connected-background = ${colors.darker}
+format-connected-padding = 2
+label-connected = %essid% 
+
+label-connected-foreground =  ${colors.darkest}
+format-disconnected = 
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.darkest}
+
+[module/eth]
+type = internal/network
+interface = enp0s3
+interval = 3.0
+
+format-connected-padding = 2
+format-connected-foreground = #272827
+format-connected-background = #7E807E
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.darkest}
+label-connected = %local_ip%
+
+format-disconnected =
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-foreground = ${colors.darkest}
+format-background = ${colors.lighter}
+format-padding = 2
+
+label = %date% %time%
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.darker}
+label-close =  cancel
+label-close-foreground = ${colors.darker}
+label-separator = |
+label-separator-foreground = ${colors.darker}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "CPU"
+format-prefix-foreground = ${colors.darkest}
+label = %percentage:2%%
+
+format-foreground = ${colors.darkest}
+format-background = ${colors.lighter}
+format-padding = 2
+
+[module/battery]
+-background = ${colors.lighter}
+
+type = internal/battery
+
+full-at = 97
+
+battery = BAT0
+adapter = AC
+
+poll-interval = 5
+time-format = %H:%M
+
+format-charging = <animation-charging>₁ <label-charging>
+
+format-discharging = <ramp-capacity>₁ <label-discharging>
+
+label-charging = %percentage%%
+
+label-discharging =%percentage%%
+
+label-full = 
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+
+animation-charging-framerate = 750
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+
+animation-discharging-framerate = 500
+
+
+
+
+
+[module/battery1]
+
+format-foreground = ${colors.darkest}
+format-background = ${colors.lighter}
+format-padding = 1
+
+type = internal/battery
+
+full-at = 99
+
+battery = BAT1
+adapter = AC
+
+poll-interval = 5
+
+time-format = %H:%M
+
+format-charging = <animation-charging>₂ <label-charging>
+
+format-discharging =<ramp-capacity>₂ <label-discharging>
+
+label-charging = %percentage%%
+
+label-discharging = %percentage%%
+
+label-full = 
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+; Only applies if <animation-discharging> is used
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+; Framerate in milliseconds
+animation-discharging-framerate = 500
+
+
+
