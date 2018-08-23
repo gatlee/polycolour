@@ -6,8 +6,9 @@ import os
 
 
 
-DIRECTORY = "./"
+DIRECTORY = "/home/gatlee/.config/polybar/"
 CONFIG_NAME = "config"
+CONFIG_BODY_NAME = "configbody"
 POLYBAR_BAR = "autumn"
 
 def refreshPolybar(array):
@@ -16,10 +17,10 @@ def refreshPolybar(array):
             writefile.write(i)
 
     os.system("cp %scolors %sconfig" % (DIRECTORY, DIRECTORY))
-    os.system("cat %sconfigbody >> %sconfig" % (DIRECTORY, DIRECTORY))
+    os.system("cat %s%s >> %sconfig" % (DIRECTORY, CONFIG_BODY_NAME, DIRECTORY))
     os.system("killall polybar")
     os.system("nohup polybar autumn &")
-    subprocess.call(["nohup", "polybar", "autumn", "&"], shell=False, stdout = open('/dev/null', "w"))
+    subprocess.call(["nohup", "polybar", "autumn", "&"], shell=False)
     os.system("clear")
     os.system("./colorpane.sh")
 
@@ -46,7 +47,7 @@ def getCurrent(rawLine):
 def main():
     os.system("./colorpane.sh")
     colorArray = genColorArray()
-    start = 0 
+    start = 0
     for i in range(len(colorArray)):
         if start == 1:
             colorIndex = input("What colour would you like %s to be? Currently: %s" \
@@ -62,7 +63,7 @@ def main():
 
 
 def modifyArray(array, index, value):
-    line = array[index] 
+    line = array[index]
     if (value == ""):
         return
     else:
@@ -71,20 +72,18 @@ def modifyArray(array, index, value):
             if line[i:].startswith('xrdb:color'):
                 line = line[:i+10] + str(value) + line[i+11:]
             i+=1
-        array[index] = line 
+        array[index] = line
 
-            
+
 def genColorArray():
     outputArray = []
-    
+
     with open("%scolors" % (DIRECTORY), "r") as readfile:
         for line in readfile:
             outputArray.append(line)
     return outputArray
-     
-    
-        
-
-main()    
 
 
+
+
+main()
